@@ -124,10 +124,10 @@ def click_encode(root):
     text_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="TEXT")
     morse_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="MORSE")
     text.bind("<KeyRelease>", lambda event: get_morse(event, root, text, result_text))
-    return_icon = Image.open('./icons/components/back_icon.png')
-    return_icon = return_icon.resize((36, 36))
+    return_icon = Image.open('./icons/components/back_arrow_icon.png')
+    return_icon = return_icon.resize((48, 48))
     return_icon = ImageTk.PhotoImage(return_icon)
-    return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48, width=512)
+    return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48, width=512, cursor=cursors[0])
     
     if not (return_button is None or text is None or result_text is None or text_title is None or morse_title is None):
         text_title.grid(row=0, column=0)
