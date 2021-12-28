@@ -115,14 +115,17 @@ def click_title(root, title_button, encode_button, decode_button):
 
 def click_encode(root):
     clear(root)
+    
     text_font = font.Font(family='Courier', size=12)
     text_font_morse = font.Font(family='Courier', size=6)
     text_font_lg = font.Font(family='Courier', size=18, weight=font.BOLD)
-    text = tk.Text(root, bg="#7AFF8E", bd=0, height=8, width=24, font=text_font, cursor=cursors[0], padx=5, pady=1)
-    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font_morse, height=18, width=48, state='disabled', padx=5, pady=1)
+    text = tk.Text(root, bg="#7AFF8E", bd=0, height=8, width=24, font=text_font, cursor=cursors[0], padx=9, pady=3)
+    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font_morse, height=18, width=48, state='disabled', padx=8, pady=3)
+    text.bind("<KeyRelease>", lambda event: get_morse(event, text, result_text))
+    
     text_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="TEXT")
     morse_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="MORSE")
-    text.bind("<KeyRelease>", lambda event: get_morse(event, root, text, result_text))
+    
     return_icon = Image.open('./icons/components/back_arrow_icon.png')
     return_icon = return_icon.resize((48, 48))
     return_icon = ImageTk.PhotoImage(return_icon)
@@ -139,38 +142,61 @@ def click_encode(root):
 
 def click_decode(root):
     clear(root)
+    
+    text_font = font.Font(family='Courier', size=12)
+    text_font_morse = font.Font(family='Courier', size=6)
+    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font, height=8, width=24, state='disabled', padx=10, pady=3)
+    morse_text = tk.Text(root, bg="#7AFF8E", bd=0, cursor=cursors[0], font=text_font_morse, height=18, width=48, padx=10, pady=3)
+    morse_text.bind("<KeyRelease>", lambda event: get_text(event, morse_text, result_text))
 
     dot_icon = Image.open('./icons/components/dot_custom.png')
-    dot_icon = dot_icon.resize((30, 30))
+    dot_icon = dot_icon.resize((20, 20))
     dot_icon = ImageTk.PhotoImage(dot_icon)
-    dot_button = tk.Button(root, image=dot_icon, activebackground="#7AFF8E", bd=0, bg="#7AFF8E", command=None, height=128, width=256, cursor=cursors[0])
+    dot_button = tk.Button(root, image=dot_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=256, cursor=cursors[0])
+    dot_button.bind("<1>", lambda event: append_dot(event, morse_text, result_text))
+
     dash_icon = Image.open('./icons/components/dash_custom.png')
-    dash_icon = dash_icon.resize((64, 64))
+    dash_icon = dash_icon.resize((80, 80))
     dash_icon = ImageTk.PhotoImage(dash_icon)
-    dash_button = tk.Button(root, image=dash_icon, activebackground="#FF6D6D", bd=0, bg="#FF6D6D", command=None, height=128, width=256, cursor=cursors[0])
+    dash_button = tk.Button(root, image=dash_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=256, cursor=cursors[0])
+    dash_button.bind("<1>", lambda event: append_dash(event, morse_text, result_text))
+
     slash_icon = Image.open('./icons/components/forwardslash_icon.png')
-    slash_icon = slash_icon.resize((48, 48))
+    slash_icon = slash_icon.resize((40, 40))
     slash_icon = ImageTk.PhotoImage(slash_icon)
     slash_button = tk.Button(root, image=slash_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=128, cursor=cursors[0])
+    slash_button.bind("<1>", lambda event: append_slash(event, morse_text, result_text))
+
+    backspace_icon = Image.open('./icons/components/backspace_icon.png')
+    backspace_icon = backspace_icon.resize((32, 32))
+    backspace_icon = ImageTk.PhotoImage(backspace_icon)
+    backspace_button = tk.Button(root, image=backspace_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=128, cursor=cursors[0])
+    backspace_button.bind("<1>", lambda event: pop_char(event, morse_text, result_text))
+
     return_icon = Image.open('./icons/components/back_arrow_icon.png')
     return_icon = return_icon.resize((48, 48))
     return_icon = ImageTk.PhotoImage(return_icon)
     return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48, width=128, cursor=cursors[0])
+    
     space_icon = Image.open('./icons/components/space_icon.png')
     space_icon = space_icon.resize((48, 48))
     space_icon = ImageTk.PhotoImage(space_icon)
-    space_button = tk.Button(root, image=space_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=256, cursor=cursors[0])
+    space_button = tk.Button(root, image=space_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=128, cursor=cursors[0])
+    space_button.bind("<1>", lambda event: append_space(event, morse_text, result_text))
 
-    if not (return_button is None or slash_button is None or space_button is None or dot_button is None or dash_button is None):
+    if not (return_button is None or slash_button is None or space_button is None or dot_button is None or dash_button is None or backspace_button is None or morse_text is None or result_text is None):
         return_button.grid(row=2, column=0)
-        space_button.grid(row=2, column=1, columnspan=2)
-        slash_button.grid(row=2, column=3)
+        space_button.grid(row=2, column=1)
+        slash_button.grid(row=2, column=2)
+        backspace_button.grid(row=2, column=3)
         dot_button.grid(row=1, column=0, columnspan=2)
         dash_button.grid(row=1, column=2, columnspan=2)
+        morse_text.grid(row=0, column=0, columnspan=2)
+        result_text.grid(row=0, column=2, columnspan=2)
     
     root.mainloop()
 
-def get_morse(event, root, text, result_text):
+def get_morse(event, text, result_text):
     t = text.get("1.0", "end-1c")
     t = t.lower()
     result = ""
@@ -179,6 +205,77 @@ def get_morse(event, root, text, result_text):
             result = "invalid input"
     if len(result) == 0:
         result = m.encode(t)
+    result_text.configure(state='normal')
+    result_text.delete(1.0, 'end')
+    result_text.insert('end', result)
+    result_text.configure(state='disabled')
+
+def get_text(event, morse_text, result_text):
+    morse = morse_text.get("1.0", "end-1c")
+    result = ""
+    for char in morse:
+        if ord(char) != 32 and ord(char) != 45 and ord(char) != 46 and ord(char) != 47:
+            result = "invalid input"
+    if len(result) == 0:
+        try:
+            result = m.decode(morse)
+        except Exception as e:
+            result = "invalid input"
+
+    result_text.configure(state='normal')
+    result_text.delete(1.0, 'end')
+    result_text.insert('end', result)
+    result_text.configure(state='disabled')
+
+def append_space(event, morse_text, result_text):
+    append_char(event, morse_text, result_text, ' ')
+
+def append_dot(event, morse_text, result_text):
+    append_char(event, morse_text, result_text, '.')
+
+def append_dash(event, morse_text, result_text):
+    append_char(event, morse_text, result_text, '-')
+
+def append_slash(event, morse_text, result_text):
+    append_char(event, morse_text, result_text, '/')
+
+def append_char(event, morse_text, result_text, c):
+    morse = morse_text.get("1.0", "end-1c")
+    result = ""
+    for char in morse:
+        if ord(char) != 32 and ord(char) != 45 and ord(char) != 46 and ord(char) != 47:
+            result = "invalid input"
+    morse += c
+    print("{} {} {}".format(c, morse, len(morse)))
+    morse_text.delete(1.0, 'end')
+    morse_text.insert('end', morse)
+    if len(result) == 0:
+        try:
+            result = m.decode(morse)
+        except Exception as e:
+            result = "invalid input"
+    result_text.configure(state='normal')
+    result_text.delete(1.0, 'end')
+    result_text.insert('end', result)
+    result_text.configure(state='disabled')
+
+def pop_char(event, morse_text, result_text):
+    morse = morse_text.get("1.0", "end-1c")
+    if len(morse) == 0:
+        return
+    result = ""
+    for char in morse:
+        if ord(char) != 32 and ord(char) != 45 and ord(char) != 46 and ord(char) != 47:
+            result = "invalid input"
+    morse = morse[:-1]
+    print("{} {}".format(morse, len(morse)))
+    morse_text.delete(1.0, 'end')
+    morse_text.insert('end', morse)
+    if len(result) == 0:
+        try:
+            result = m.decode(morse)
+        except Exception as e:
+            result = "invalid input"
     result_text.configure(state='normal')
     result_text.delete(1.0, 'end')
     result_text.insert('end', result)

@@ -87,6 +87,8 @@ class Morse:
         return root
     
     def get_char(self, node, morse):
+        if node is None:
+            raise Exception
         if len(morse) == 0:
             return node.value
         elif morse[0] == '.':
