@@ -6,7 +6,6 @@ import morse
 from PIL import Image, ImageTk
 
 m = morse.Morse()
-morse_string = [""]
 counter = [0]
 cursors = [
     "hand2",
@@ -119,8 +118,8 @@ def click_encode(root):
     text_font = font.Font(family='Courier', size=12)
     text_font_morse = font.Font(family='Courier', size=6)
     text_font_lg = font.Font(family='Courier', size=18, weight=font.BOLD)
-    text = tk.Text(root, bg="#7AFF8E", bd=0, height=8, width=25, font=text_font, cursor=cursors[0], padx=5, pady=1)
-    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font_morse, height=18, width=50, state='disabled', padx=5, pady=1)
+    text = tk.Text(root, bg="#7AFF8E", bd=0, height=8, width=24, font=text_font, cursor=cursors[0], padx=5, pady=1)
+    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font_morse, height=18, width=48, state='disabled', padx=5, pady=1)
     text_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="TEXT")
     morse_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="MORSE")
     text.bind("<KeyRelease>", lambda event: get_morse(event, root, text, result_text))
@@ -138,6 +137,39 @@ def click_encode(root):
     
     root.mainloop()
 
+def click_decode(root):
+    clear(root)
+
+    dot_icon = Image.open('./icons/components/dot_custom.png')
+    dot_icon = dot_icon.resize((30, 30))
+    dot_icon = ImageTk.PhotoImage(dot_icon)
+    dot_button = tk.Button(root, image=dot_icon, activebackground="#7AFF8E", bd=0, bg="#7AFF8E", command=None, height=128, width=256, cursor=cursors[0])
+    dash_icon = Image.open('./icons/components/dash_custom.png')
+    dash_icon = dash_icon.resize((64, 64))
+    dash_icon = ImageTk.PhotoImage(dash_icon)
+    dash_button = tk.Button(root, image=dash_icon, activebackground="#FF6D6D", bd=0, bg="#FF6D6D", command=None, height=128, width=256, cursor=cursors[0])
+    slash_icon = Image.open('./icons/components/forwardslash_icon.png')
+    slash_icon = slash_icon.resize((48, 48))
+    slash_icon = ImageTk.PhotoImage(slash_icon)
+    slash_button = tk.Button(root, image=slash_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=128, cursor=cursors[0])
+    return_icon = Image.open('./icons/components/back_arrow_icon.png')
+    return_icon = return_icon.resize((48, 48))
+    return_icon = ImageTk.PhotoImage(return_icon)
+    return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48, width=128, cursor=cursors[0])
+    space_icon = Image.open('./icons/components/space_icon.png')
+    space_icon = space_icon.resize((48, 48))
+    space_icon = ImageTk.PhotoImage(space_icon)
+    space_button = tk.Button(root, image=space_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=256, cursor=cursors[0])
+
+    if not (return_button is None or slash_button is None or space_button is None or dot_button is None or dash_button is None):
+        return_button.grid(row=2, column=0)
+        space_button.grid(row=2, column=1, columnspan=2)
+        slash_button.grid(row=2, column=3)
+        dot_button.grid(row=1, column=0, columnspan=2)
+        dash_button.grid(row=1, column=2, columnspan=2)
+    
+    root.mainloop()
+
 def get_morse(event, root, text, result_text):
     t = text.get("1.0", "end-1c")
     t = t.lower()
@@ -151,9 +183,6 @@ def get_morse(event, root, text, result_text):
     result_text.delete(1.0, 'end')
     result_text.insert('end', result)
     result_text.configure(state='disabled')
-
-def click_decode(root):
-    clear(root)
 
 def clear(root):
     objs = root.grid_slaves()
