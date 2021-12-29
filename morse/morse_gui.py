@@ -147,11 +147,20 @@ def click_encode(root):
 
 def click_decode(root):
     clear(root)
+
+    text_icon = Image.open('./icons/components/abc_custom.png')
+    text_icon = text_icon.resize((72, 72))
+    text_icon = ImageTk.PhotoImage(text_icon)
+    text_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], height=48, width=512, image=text_icon)
+    morse_icon = Image.open('./icons/components/abc_morse_icon.png')
+    morse_icon = morse_icon.resize((48, 48))
+    morse_icon = ImageTk.PhotoImage(morse_icon)
+    morse_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], height=48, width=512, image=morse_icon)
     
     text_font = font.Font(family='Courier', size=18)
     text_font_morse = font.Font(family='Courier', size=12)
-    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font, height=14, width=34, state='disabled', padx=19, pady=18)
-    morse_text = tk.Text(root, bg="#7AFF8E", bd=0, cursor=cursors[0], font=text_font_morse, height=21, width=47, padx=22, pady=18)
+    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font, height=12, width=34, state='disabled', padx=23, pady=18)
+    morse_text = tk.Text(root, bg="#7AFF8E", bd=0, cursor=cursors[0], font=text_font_morse, height=18, width=47, padx=23, pady=18)
     morse_text.bind("<KeyRelease>", lambda event: get_text(event, morse_text, result_text))
 
     dot_icon = Image.open('./icons/components/dot_custom.png')
@@ -189,15 +198,17 @@ def click_decode(root):
     space_button = tk.Button(root, image=space_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=44, width=256, cursor=cursors[0])
     space_button.bind("<1>", lambda event: append_space(event, morse_text, result_text))
 
-    if not (return_button is None or slash_button is None or space_button is None or dot_button is None or dash_button is None or backspace_button is None or morse_text is None or result_text is None):
-        return_button.grid(row=1, rowspan=2, column=0)
-        space_button.grid(row=2, column=1)
-        slash_button.grid(row=2, column=2)
-        backspace_button.grid(row=1, rowspan=2, column=3)
-        dot_button.grid(row=1, column=1)
-        dash_button.grid(row=1, column=2)
-        morse_text.grid(row=0, column=0, columnspan=2)
-        result_text.grid(row=0, column=2, columnspan=2)
+    if not (return_button is None or slash_button is None or space_button is None or dot_button is None or dash_button is None or backspace_button is None or morse_text is None or result_text is None or text_title is None or morse_title is None):
+        text_title.grid(row=0, column=0, columnspan=2)
+        morse_title.grid(row=0, column=2, columnspan=2)
+        return_button.grid(row=2, rowspan=2, column=0)
+        space_button.grid(row=3, column=1)
+        slash_button.grid(row=3, column=2)
+        backspace_button.grid(row=2, rowspan=2, column=3)
+        dot_button.grid(row=2, column=1)
+        dash_button.grid(row=2, column=2)
+        morse_text.grid(row=1, column=0, columnspan=2)
+        result_text.grid(row=1, column=2, columnspan=2)
     
     root.mainloop()
 
