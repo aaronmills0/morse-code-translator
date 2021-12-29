@@ -45,31 +45,32 @@ cursors = [
     "watch",
     "X_cursor"
 ]
-cur_title_icon = ['./icons/components/morse_code_translator_icon.png']
-cur_title_icon_size = [(368, 368)]
+ws = 1
+cur_title_icon = ['./icons/components/morse_code_icon.png']
+cur_title_icon_size = [(36*ws, 36*ws)]
 def main():
     root = tk.Tk()
     root.configure(bg="#FFFFFF")
     root.title('Morse Code Translator')
     root.iconbitmap('./icons/morse_code_icon.ico')
-    root.minsize(width=512, height=256)
-    root.maxsize(width=512, height=256)
+    root.minsize(width=512*ws, height=256*ws)
+    root.maxsize(width=512*ws, height=256*ws)
     home_page(root)
 
 def home_page(root):
     clear(root)
     encode_icon = Image.open('./icons/components/abc_to_abc_morse.png')
-    encode_icon = encode_icon.resize((256,256))
+    encode_icon = encode_icon.resize((256*ws,256*ws))
     encode_icon = ImageTk.PhotoImage(encode_icon)
     decode_icon = Image.open('./icons/components/abc_morse_to_abc.png')
-    decode_icon = decode_icon.resize((256,256))
+    decode_icon = decode_icon.resize((256*ws,256*ws))
     decode_icon = ImageTk.PhotoImage(decode_icon)
-    title_icon = Image.open('./icons/components/morse_code_translator_icon.png')
-    title_icon = title_icon.resize((368, 368))
+    title_icon = Image.open('./icons/components/morse_code_icon.png')
+    title_icon = title_icon.resize((48*ws, 48*ws))
     title_icon = ImageTk.PhotoImage(title_icon)
-    encode_button = tk.Button(root, image=encode_icon, activebackground="#7AFF8E", bd=0, bg="#7AFF8E", command=lambda: click_encode(root), height=208, width=256, cursor=cursors[0])
-    decode_button = tk.Button(root, image=decode_icon, activebackground="#FF6D6D", bd=0, bg="#FF6D6D", command=lambda: click_decode(root), height=208, width=256, cursor=cursors[0])
-    title_button = tk.Button(root, image=title_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: click_title(root, title_button, encode_button, decode_button), height=48, width=512, cursor=cursors[1])
+    encode_button = tk.Button(root, image=encode_icon, activebackground="#7AFF8E", bd=0, bg="#7AFF8E", command=lambda: click_encode(root), height=208*ws, width=256*ws, cursor=cursors[0])
+    decode_button = tk.Button(root, image=decode_icon, activebackground="#FF6D6D", bd=0, bg="#FF6D6D", command=lambda: click_decode(root), height=208*ws, width=256*ws, cursor=cursors[0])
+    title_button = tk.Button(root, image=title_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: click_title(root, title_button, encode_button, decode_button), height=48*ws, width=512*ws, cursor=cursors[1])
     if not (title_button is None or encode_button is None or decode_button is None):
         title_button.grid(row=0, column=0, columnspan=2)
         encode_button.grid(row=1, column=0)
@@ -84,23 +85,23 @@ def click_title(root, title_button, encode_button, decode_button):
     global counter
     if counter[0] == 0 :
         title_icon = Image.open('./icons/components/egg_morse_icon.png')
-        title_icon = title_icon.resize((40, 40))
+        title_icon = title_icon.resize((40*ws, 40*ws))
         title_icon = ImageTk.PhotoImage(title_icon)
         title_button.config(image=title_icon)
         cur_title_icon[0] = './icons/components/egg_morse_icon.png'
-        cur_title_icon_size[0] = (40, 40)
+        cur_title_icon_size[0] = (40*ws, 40*ws)
         counter[0] = 1
     elif counter[0] == 1:
         title_icon = Image.open('./icons/components/egg_icon.png')
-        title_icon = title_icon.resize((36, 36))
+        title_icon = title_icon.resize((36*ws, 36*ws))
         title_icon = ImageTk.PhotoImage(title_icon)
         title_button.config(image=title_icon)
         cur_title_icon[0] = './icons/components/egg_icon.png'
-        cur_title_icon_size[0] = (36, 36)
+        cur_title_icon_size[0] = (36*ws, 36*ws)
         counter[0] = 2
     elif counter[0] == 2 or counter[0] == 3:
         title_icon = Image.open('./icons/components/egg_cracked_icon.png')
-        title_icon = title_icon.resize((36, 36))
+        title_icon = title_icon.resize((36*ws, 36*ws))
         title_icon = ImageTk.PhotoImage(title_icon)
         title_button.config(image=title_icon)
         if counter[0] == 3:
@@ -109,27 +110,33 @@ def click_title(root, title_button, encode_button, decode_button):
             encode_button.config(cursor=cursors[0])
             decode_button.config(cursor=cursors[0])
         cur_title_icon[0] = './icons/components/egg_cracked_icon.png'
-        cur_title_icon_size[0] = (36, 36)
+        cur_title_icon_size[0] = (36*ws, 36*ws)
         counter[0] = 3
     root.mainloop()
 
 def click_encode(root):
     clear(root)
     
-    text_font = font.Font(family='Courier', size=12)
-    text_font_morse = font.Font(family='Courier', size=6)
-    text_font_lg = font.Font(family='Courier', size=18, weight=font.BOLD)
-    text = tk.Text(root, bg="#7AFF8E", bd=0, height=8, width=24, font=text_font, cursor=cursors[0], padx=9, pady=3)
-    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font_morse, height=18, width=48, state='disabled', padx=8, pady=3)
+    text_font = font.Font(family='Courier', size=12*ws)
+    text_font_morse = font.Font(family='Courier', size=6*ws)
+    text_font_lg = font.Font(family='Courier', size=18*ws, weight=font.BOLD)
+    text = tk.Text(root, bg="#7AFF8E", bd=0, height=8, width=24, font=text_font, cursor=cursors[0], padx=9*ws, pady=3*ws)
+    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font_morse, height=18, width=48, state='disabled', padx=8*ws, pady=3*ws)
     text.bind("<KeyRelease>", lambda event: get_morse(event, text, result_text))
     
-    text_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="TEXT")
-    morse_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], font=text_font_lg, height=2, width=13, text="MORSE")
+    text_icon = Image.open('./icons/components/abc_custom.png')
+    text_icon = text_icon.resize((52*ws, 52*ws))
+    text_icon = ImageTk.PhotoImage(text_icon)
+    text_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], height=48*ws, width=256*ws, image=text_icon)
+    morse_icon = Image.open('./icons/components/abc_morse_icon.png')
+    morse_icon = morse_icon.resize((40*ws, 40*ws))
+    morse_icon = ImageTk.PhotoImage(morse_icon)
+    morse_title = tk.Label(root, bg="#FFFFFF", bd=0, cursor=cursors[1], height=48*ws, width=256*ws, image=morse_icon)
     
     return_icon = Image.open('./icons/components/back_arrow_icon.png')
-    return_icon = return_icon.resize((48, 48))
+    return_icon = return_icon.resize((48*ws, 48*ws))
     return_icon = ImageTk.PhotoImage(return_icon)
-    return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48, width=512, cursor=cursors[0])
+    return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48*ws, width=512*ws, cursor=cursors[0])
     
     if not (return_button is None or text is None or result_text is None or text_title is None or morse_title is None):
         text_title.grid(row=0, column=0)
@@ -143,54 +150,54 @@ def click_encode(root):
 def click_decode(root):
     clear(root)
     
-    text_font = font.Font(family='Courier', size=12)
-    text_font_morse = font.Font(family='Courier', size=6)
-    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font, height=8, width=24, state='disabled', padx=10, pady=3)
-    morse_text = tk.Text(root, bg="#7AFF8E", bd=0, cursor=cursors[0], font=text_font_morse, height=18, width=48, padx=10, pady=3)
+    text_font = font.Font(family='Courier', size=12*ws)
+    text_font_morse = font.Font(family='Courier', size=6*ws)
+    result_text = tk.Text(root, bg="#FF6D6D", bd=0, cursor=cursors[1], font=text_font, height=8, width=24, state='disabled', padx=10*ws, pady=3*ws)
+    morse_text = tk.Text(root, bg="#7AFF8E", bd=0, cursor=cursors[0], font=text_font_morse, height=18, width=48, padx=10*ws, pady=3*ws)
     morse_text.bind("<KeyRelease>", lambda event: get_text(event, morse_text, result_text))
 
     dot_icon = Image.open('./icons/components/dot_custom.png')
-    dot_icon = dot_icon.resize((20, 20))
+    dot_icon = dot_icon.resize((20*ws, 20*ws))
     dot_icon = ImageTk.PhotoImage(dot_icon)
-    dot_button = tk.Button(root, image=dot_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=256, cursor=cursors[0])
+    dot_button = tk.Button(root, image=dot_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48*ws, width=128*ws, cursor=cursors[0])
     dot_button.bind("<1>", lambda event: append_dot(event, morse_text, result_text))
 
     dash_icon = Image.open('./icons/components/dash_custom.png')
-    dash_icon = dash_icon.resize((80, 80))
+    dash_icon = dash_icon.resize((80*ws, 80*ws))
     dash_icon = ImageTk.PhotoImage(dash_icon)
-    dash_button = tk.Button(root, image=dash_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=256, cursor=cursors[0])
+    dash_button = tk.Button(root, image=dash_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48*ws, width=128*ws, cursor=cursors[0])
     dash_button.bind("<1>", lambda event: append_dash(event, morse_text, result_text))
 
     slash_icon = Image.open('./icons/components/forwardslash_icon.png')
-    slash_icon = slash_icon.resize((40, 40))
+    slash_icon = slash_icon.resize((40*ws, 40*ws))
     slash_icon = ImageTk.PhotoImage(slash_icon)
-    slash_button = tk.Button(root, image=slash_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=128, cursor=cursors[0])
+    slash_button = tk.Button(root, image=slash_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48*ws, width=128*ws, cursor=cursors[0])
     slash_button.bind("<1>", lambda event: append_slash(event, morse_text, result_text))
 
     backspace_icon = Image.open('./icons/components/backspace_icon.png')
-    backspace_icon = backspace_icon.resize((32, 32))
+    backspace_icon = backspace_icon.resize((32*ws, 32*ws))
     backspace_icon = ImageTk.PhotoImage(backspace_icon)
-    backspace_button = tk.Button(root, image=backspace_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=128, cursor=cursors[0])
+    backspace_button = tk.Button(root, image=backspace_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48*ws, width=256*ws, cursor=cursors[0])
     backspace_button.bind("<1>", lambda event: pop_char(event, morse_text, result_text))
 
     return_icon = Image.open('./icons/components/back_arrow_icon.png')
-    return_icon = return_icon.resize((48, 48))
+    return_icon = return_icon.resize((48*ws, 48*ws))
     return_icon = ImageTk.PhotoImage(return_icon)
-    return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48, width=128, cursor=cursors[0])
+    return_button = tk.Button(root, image=return_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=lambda: home_page(root), height=48*ws, width=256*ws, cursor=cursors[0])
     
     space_icon = Image.open('./icons/components/space_icon.png')
-    space_icon = space_icon.resize((48, 48))
+    space_icon = space_icon.resize((48*ws, 48*ws))
     space_icon = ImageTk.PhotoImage(space_icon)
-    space_button = tk.Button(root, image=space_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48, width=128, cursor=cursors[0])
+    space_button = tk.Button(root, image=space_icon, activebackground="#FFFFFF", bd=0, bg="#FFFFFF", command=None, height=48*ws, width=128*ws, cursor=cursors[0])
     space_button.bind("<1>", lambda event: append_space(event, morse_text, result_text))
 
     if not (return_button is None or slash_button is None or space_button is None or dot_button is None or dash_button is None or backspace_button is None or morse_text is None or result_text is None):
-        return_button.grid(row=2, column=0)
-        space_button.grid(row=2, column=1)
-        slash_button.grid(row=2, column=2)
-        backspace_button.grid(row=2, column=3)
-        dot_button.grid(row=1, column=0, columnspan=2)
-        dash_button.grid(row=1, column=2, columnspan=2)
+        return_button.grid(row=2, column=0, columnspan=2)
+        space_button.grid(row=1, column=0)
+        slash_button.grid(row=1, column=3)
+        backspace_button.grid(row=2, column=2, columnspan=2)
+        dot_button.grid(row=1, column=1)
+        dash_button.grid(row=1, column=2)
         morse_text.grid(row=0, column=0, columnspan=2)
         result_text.grid(row=0, column=2, columnspan=2)
     
@@ -246,7 +253,6 @@ def append_char(event, morse_text, result_text, c):
         if ord(char) != 32 and ord(char) != 45 and ord(char) != 46 and ord(char) != 47:
             result = "invalid input"
     morse += c
-    print("{} {} {}".format(c, morse, len(morse)))
     morse_text.delete(1.0, 'end')
     morse_text.insert('end', morse)
     if len(result) == 0:
@@ -268,7 +274,6 @@ def pop_char(event, morse_text, result_text):
         if ord(char) != 32 and ord(char) != 45 and ord(char) != 46 and ord(char) != 47:
             result = "invalid input"
     morse = morse[:-1]
-    print("{} {}".format(morse, len(morse)))
     morse_text.delete(1.0, 'end')
     morse_text.insert('end', morse)
     if len(result) == 0:
