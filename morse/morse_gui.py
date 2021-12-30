@@ -217,7 +217,7 @@ def get_morse(event, text, result_text):
     t = t.lower()
     result = ""
     for char in t:
-        if ord(char) != 32 and (ord(char) < 97 or ord(char) > 122):
+        if ord(char) != 32 and not(char in m.mapping):
             result = "invalid input"
     if len(result) == 0:
         result = m.encode(t)
