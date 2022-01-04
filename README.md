@@ -9,3 +9,9 @@
 
 ### Morse Code &#8594; English
 <img src="https://github.com/aaronmills0/morse-code-translator/blob/main/images/decode_page.PNG" width="800">
+
+## Installation
+[Download the latest release](https://github.com/aaronmills0/morse-code-translator/releases/tag/v1.0)
+
+## Launch
+Run <b>\'morse-code-translator.exe\'</b> located in the \'morse\' directory
