@@ -1,5 +1,10 @@
 # Morse Code Translator
 
+## Table of Contents
+* [User Interface](#user-interface)
+* [Installation](#installation)
+* [Launch](#launch)
+
 ## User Interface
 ### Home Page
 <img src="https://github.com/aaronmills0/morse-code-translator/blob/main/images/home_page.PNG" width="800">
