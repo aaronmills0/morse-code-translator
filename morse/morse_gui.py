@@ -218,8 +218,8 @@ def click_decode(root):
     space_button.bind("<1>", lambda event: append_space(event, morse_text, result_text))
 
     if not (return_button is None or slash_button is None or space_button is None or dot_button is None or dash_button is None or backspace_button is None or morse_text is None or result_text is None or text_title is None or morse_title is None):
-        text_title.grid(row=0, column=0, columnspan=2)
-        morse_title.grid(row=0, column=2, columnspan=2)
+        text_title.grid(row=0, column=2, columnspan=2)
+        morse_title.grid(row=0, column=0, columnspan=2)
         return_button.grid(row=2, rowspan=2, column=0)
         space_button.grid(row=3, column=1)
         slash_button.grid(row=3, column=2)
