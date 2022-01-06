@@ -16,8 +16,8 @@
 <img src="https://github.com/aaronmills0/morse-code-translator/blob/main/images/decode_page.PNG" width="800">
 
 ## Installation
-*[Download the latest release](https://github.com/aaronmills0/morse-code-translator/releases/tag/v1.1)
-*Install dependencies in [requirements.txt]()
+* [Download the latest release](https://github.com/aaronmills0/morse-code-translator/releases/tag/v1.1)
+* Install dependencies in [requirements.txt](https://github.com/aaronmills0/morse-code-translator/blob/main/requirements.txt)
 
 ## Launch
 Run <b>\'morse-code-translator.exe\'</b> located in the \'morse\' directory
